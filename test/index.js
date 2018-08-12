@@ -63,6 +63,16 @@ test('nested keys', t => {
 	t.end();
 });
 
+test('nested keys (invalid)', t => {
+	let obj = { foo:123 };
+	t.is(fn('{{foo.bar}}', obj), '');
+	t.is(fn('{{foo.bar.baz}}', obj), '');
+	let arr = [123];
+	t.is(fn('{{0.1}}', arr), '');
+	t.is(fn('{{0.1.2}}', arr), '');
+	t.end();
+});
+
 test('multiline string', t => {
 	let obj = { foo:123, bar:456 };
 	t.is(fn('\nApples: {{foo}}\n\nOranges: {{bar}}', obj), '\nApples: 123\n\nOranges: 456');
