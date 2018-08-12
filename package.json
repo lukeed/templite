@@ -11,6 +11,9 @@
   "scripts": {
     "build": "node builder"
   },
+  "dependencies": {
+    "dlv": "^1.1.2"
+  },
   "devDependencies": {
     "mk-dirs": "^1.0.0",
     "rewrite-imports": "^1.1.1"
