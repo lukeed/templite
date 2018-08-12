@@ -2,6 +2,7 @@
   "name": "templite",
   "version": "0.0.0",
   "repository": "lukeed/templite",
+  "description": "Lightweight templating in 150 bytes",
   "module": "dist/templite.mjs",
   "main": "dist/templite.js",
   "license": "MIT",
@@ -13,6 +14,12 @@
     "pretest": "npm run build",
     "test": "tape test/*.js | tap-spec"
   },
+  "keywords": [
+    "inject",
+    "mustache",
+    "placeholder",
+    "template"
+  ],
   "devDependencies": {
     "mk-dirs": "^1.0.0",
     "rewrite-imports": "^1.1.1",
