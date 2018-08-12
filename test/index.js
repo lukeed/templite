@@ -80,3 +80,8 @@ test('mixed datatype', t => {
 	t.is(fn('{{foo}}, {{bar}}! {{0}}{{1}}{{2}}', arr), 'hello, world! 456');
 	t.end();
 });
+
+test('allows "0" value', t => {
+	t.is(fn('{{0}} & {{1}}', [0, -1]), '0 & -1');
+	t.end();
+});
