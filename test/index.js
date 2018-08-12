@@ -73,6 +73,16 @@ test('nested keys (invalid)', t => {
 	t.end();
 });
 
+test('trim keys (whitespace)', t => {
+	let obj = { foo:123, bar:{ baz:456 } };
+	t.is(fn('{{ foo }}', obj), '123');
+	t.is(fn('{{ bar.baz }}', obj), '456');
+	let arr = [123, [456]];
+	t.is(fn('{{ 0 }}', arr), '123');
+	t.is(fn('{{ 1.0 }}', arr), '456');
+	t.end();
+});
+
 test('multiline string', t => {
 	let obj = { foo:123, bar:456 };
 	t.is(fn('\nApples: {{foo}}\n\nOranges: {{bar}}', obj), '\nApples: 123\n\nOranges: 456');
