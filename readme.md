@@ -1,6 +1,6 @@
 # templite [![Build Status](https://travis-ci.org/lukeed/templite.svg?branch=master)](https://travis-ci.org/lukeed/templite)
 
-> Lightweight templating in 150 bytes
+> Lightweight templating in 154 bytes
 
 Allows you to denote dynamic portions of a string using double curly brackets (`{{ example }}`) & then replace them with matching values from your data source.
 
