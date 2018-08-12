@@ -13,9 +13,6 @@
     "pretest": "npm run build",
     "test": "tape test/*.js | tap-spec"
   },
-  "dependencies": {
-    "dlv": "^1.1.2"
-  },
   "devDependencies": {
     "mk-dirs": "^1.0.0",
     "rewrite-imports": "^1.1.1",
