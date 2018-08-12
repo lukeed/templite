@@ -59,7 +59,7 @@ Type: `String`
 
 The string template to operate upon.
 
-Its dynamic placeholders are signified with double curly brackets (`{{example}}`) and may map to key names or indices. They may also reference deeply nested values via dot-notation (`foo.bar.baz`).
+Its dynamic placeholders are signified with double curly brackets (`{{foo}}` or `{{ foo }}`) and may map to key names or indices. They may also reference deeply nested values via dot-notation (`foo.bar.baz`).
 
 Unknown keys/indices and `null` or `undefined` values are replaced with an empty string (`''`).
 
