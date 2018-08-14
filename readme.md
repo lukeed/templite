@@ -23,6 +23,10 @@ const templite = require('templite');
 templite('Hello, {{name}}!', { name: 'world' });
 //=> Hello, world!
 
+const curried = templite('Hello, {{name}}!');
+curried({ name: 'world' });
+//=> Hello, world!
+
 templite('Howdy, {{0}}! {{1}}', ['partner', '🤠']);
 //=> Howdy, partner! 🤠
 

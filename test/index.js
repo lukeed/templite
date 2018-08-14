@@ -24,6 +24,16 @@ test('basic :: array', t => {
 	t.end();
 });
 
+test('curried', t => {
+	let x = 'Hello, {{name}}!';
+	let y = { name: 'world' };
+	let templite = fn(x);
+
+	t.is(typeof templite, 'function');
+	t.is(templite(y), 'Hello, world!');
+	t.end();
+});
+
 test('repeats', t => {
 	t.is(fn('{{0}}{{0}}{{0}}', ['🎉']), '🎉🎉🎉');
 	t.is(fn('{{x}}{{x}}{{x}}', { x: 'hi~' }), 'hi~hi~hi~');
