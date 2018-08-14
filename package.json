@@ -1,6 +1,6 @@
 {
   "name": "templite",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "repository": "lukeed/templite",
   "description": "Lightweight templating in 154 bytes",
   "module": "dist/templite.mjs",
