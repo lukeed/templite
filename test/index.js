@@ -105,3 +105,10 @@ test('allows "0" value', t => {
 	t.is(fn('{{0}} & {{1}}', [0, -1]), '0 & -1');
 	t.end();
 });
+
+test('currying', t => {
+	let x = fn.bind(null, 'Hello, {{name}}');
+	let arr = ['Jack', 'Jill', 'John'].map(name => x({ name }));
+	t.same(arr, ['Hello, Jack', 'Hello, Jill', 'Hello, John']);
+	t.end();
+});
