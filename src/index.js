@@ -1,6 +1,6 @@
 const RGX = /{{(.*?)}}/g;
 
-export default function (str, mix) {
+function templite(str, mix) {
 	return str.replace(RGX, (x, key, y) => {
 		x = 0;
 		y = mix;
@@ -10,4 +10,8 @@ export default function (str, mix) {
 		}
 		return y != null ? y : '';
 	});
+}
+
+export default function (str, mix) {
+	return mix ? templite(str, mix) : (mix) => templite(str, mix);
 }
