@@ -1,13 +1,9 @@
 const RGX = /{{(.*?)}}/g;
+const get = (obj, key) => obj && obj[key];
 
 export default function (str, mix) {
-	return str.replace(RGX, (x, key, y) => {
-		x = 0;
-		y = mix;
-		key = key.trim().split('.');
-		while (y && x < key.length) {
-			y = y[key[x++]];
-		}
-		return y != null ? y : '';
+	return str.replace(RGX, (x, key) => {
+		x = key.trim().split('.').reduce(get, mix);
+		return x != null ? x : '';
 	});
 }
