@@ -112,3 +112,10 @@ test('currying', t => {
 	t.same(arr, ['Hello, Jack', 'Hello, Jill', 'Hello, John']);
 	t.end();
 });
+
+test('cycle', t => {
+	const obj = { name:'House', peoples:['Jack', 'Jill', 'John'] };
+	t.is(fn('{{name}}, build by{{#each peoples}} {{this}}{{/each}}', obj),
+	 'House, build by Jack Jill John');
+	t.end();
+});
