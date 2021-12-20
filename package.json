@@ -21,9 +21,9 @@
     "template"
   ],
   "devDependencies": {
-    "mk-dirs": "^1.0.0",
-    "rewrite-imports": "^1.1.1",
+    "mk-dirs": "^3.0.0",
+    "rewrite-imports": "^3.0.0",
     "tap-spec": "^5.0.0",
-    "tape": "^4.9.1"
+    "tape": "^5.3.2"
   }
 }
