@@ -9,5 +9,5 @@ mkdir('dist').then(_ => {
 	// Copy as is for ESM
 	fs.writeFileSync(pkg.module, data);
 	// Rewrite ESM ~> CJS
-	fs.writeFileSync(pkg.main, rewrite(data).replace('export default', 'module.exports ='));
+	fs.writeFileSync(pkg.main, imports(data).replace('export default', 'module.exports ='));
 });
