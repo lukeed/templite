@@ -1,6 +1,6 @@
 const fs = require('fs');
-const { mkdir } = require('mk-dirs');
-const { rewrite } = require('rewrite-imports');
+const mkdir = require('mk-dirs');
+const imports = require('rewrite-imports');
 const pkg = require('./package');
 
 let data = fs.readFileSync('src/index.js', 'utf8');
