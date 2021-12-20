@@ -5,9 +5,11 @@
   "description": "Lightweight templating in 154 bytes",
   "module": "dist/templite.mjs",
   "main": "dist/templite.js",
+  "types": "index.d.ts",
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "index.d.ts"
   ],
   "scripts": {
     "build": "node builder",
