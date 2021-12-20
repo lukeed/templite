@@ -1,1 +1,1 @@
-export default function<T extends unknown>(str: string, mix: { [key: string]: T }): string;
+export default function<T extends { [key: string]: any }>(str: string, mix: T): string;
