@@ -13,7 +13,7 @@
     "index.d.ts"
   ],
   "scripts": {
-    "build": "node builder",
+    "build": "bundt",
     "pretest": "npm run build",
     "test": "uvu test"
   },
@@ -24,8 +24,7 @@
     "template"
   ],
   "devDependencies": {
-    "mk-dirs": "^1.0.0",
-    "rewrite-imports": "^1.1.1",
+    "bundt": "^1.1.5",
     "uvu": "^0.5.3"
   }
 }
