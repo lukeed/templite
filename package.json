@@ -3,6 +3,7 @@
   "version": "1.2.0",
   "repository": "lukeed/templite",
   "description": "Lightweight templating in 154 bytes",
+  "type": "module",
   "module": "dist/templite.mjs",
   "main": "dist/templite.js",
   "types": "index.d.ts",
@@ -12,9 +13,9 @@
     "index.d.ts"
   ],
   "scripts": {
-    "build": "node builder",
+    "build": "bundt",
     "pretest": "npm run build",
-    "test": "tape test/*.js | tap-spec"
+    "test": "uvu test"
   },
   "keywords": [
     "inject",
@@ -23,9 +24,7 @@
     "template"
   ],
   "devDependencies": {
-    "mk-dirs": "^1.0.0",
-    "rewrite-imports": "^1.1.1",
-    "tap-spec": "^5.0.0",
-    "tape": "^4.9.1"
+    "bundt": "^1.1.5",
+    "uvu": "^0.5.3"
   }
 }

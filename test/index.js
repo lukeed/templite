@@ -1,54 +1,49 @@
-const test = require('tape');
-const fn = require('../dist/templite');
+import { test } from 'uvu';
+import * as assert from 'uvu/assert';
+import fn from '../src/index.js';
 
-test('exports', t => {
-	t.is(typeof fn, 'function', '~> a function');
-	t.end();
+test('exports', () => {
+	assert.is(typeof fn, 'function', '~> a function');
 });
 
-test('basic :: object', t => {
+test('basic :: object', () => {
 	let x = 'Hello, {{name}}!';
 	let y = { name: 'world' };
-	t.is(fn(x, y), 'Hello, world!');
-	t.same(x, 'Hello, {{name}}!', '~> input string intact');
-	t.same(y, { name: 'world' }, '~> input object intact');
-	t.end();
+	assert.is(fn(x, y), 'Hello, world!');
+	assert.equal(x, 'Hello, {{name}}!', '~> input string intact');
+	assert.equal(y, { name: 'world' }, '~> input object intact');
 });
 
-test('basic :: array', t => {
+test('basic :: array', () => {
 	let x = 'Hello, {{0}}!';
 	let y = ['world'];
-	t.is(fn(x, y), 'Hello, world!');
-	t.same(x, 'Hello, {{0}}!', '~> input string intact');
-	t.same(y, ['world'], '~> input array intact');
-	t.end();
+	assert.is(fn(x, y), 'Hello, world!');
+	assert.equal(x, 'Hello, {{0}}!', '~> input string intact');
+	assert.equal(y, ['world'], '~> input array intact');
 });
 
-test('repeats', t => {
-	t.is(fn('{{0}}{{0}}{{0}}', ['🎉']), '🎉🎉🎉');
-	t.is(fn('{{x}}{{x}}{{x}}', { x: 'hi~' }), 'hi~hi~hi~');
-	t.end();
+test('repeats', () => {
+	assert.is(fn('{{0}}{{0}}{{0}}', ['🎉']), '🎉🎉🎉');
+	assert.is(fn('{{x}}{{x}}{{x}}', { x: 'hi~' }), 'hi~hi~hi~');
 });
 
-test('invalid key ~> empty string', t => {
+test('invalid key ~> empty string', () => {
 	let obj = { a:1, b:2 };
-	t.is(fn('{{a}}{{d}}{{b}}', obj), '12');
-	t.is(fn('{{d}}', obj), '');
+	assert.is(fn('{{a}}{{d}}{{b}}', obj), '12');
+	assert.is(fn('{{d}}', obj), '');
 	let arr = [1, 2];
-	t.is(fn('{{0}}{{9}}{{1}}', arr), '12');
-	t.is(fn('{{9}}', arr), '');
-	t.end();
+	assert.is(fn('{{0}}{{9}}{{1}}', arr), '12');
+	assert.is(fn('{{9}}', arr), '');
 });
 
-test('null keys', t => {
+test('null keys', () => {
 	let obj = { a:null, b:undefined };
-	t.is(fn('{{a}}~{{b}}', obj), '~');
+	assert.is(fn('{{a}}~{{b}}', obj), '~');
 	let arr = [ null, , undefined ];
-	t.is(fn('{{0}}~{{1}}~{{2}}', arr), '~~');
-	t.end();
+	assert.is(fn('{{0}}~{{1}}~{{2}}', arr), '~~');
 });
 
-test('nested keys', t => {
+test('nested keys', () => {
 	let obj = {
 		name: 'John',
 		foo: {
@@ -58,57 +53,52 @@ test('nested keys', t => {
 		}
 	};
 	let arr = ['John', [[['Smith']]]];
-	t.is(fn('{{name}} {{foo.bar.baz}}', obj), 'John Smith');
-	t.is(fn('{{0}} {{1.0.0}}', arr), 'John Smith');
-	t.end();
+	assert.is(fn('{{name}} {{foo.bar.baz}}', obj), 'John Smith');
+	assert.is(fn('{{0}} {{1.0.0}}', arr), 'John Smith');
 });
 
-test('nested keys (invalid)', t => {
+test('nested keys (invalid)', () => {
 	let obj = { foo:123 };
-	t.is(fn('{{foo.bar}}', obj), '');
-	t.is(fn('{{foo.bar.baz}}', obj), '');
+	assert.is(fn('{{foo.bar}}', obj), '');
+	assert.is(fn('{{foo.bar.baz}}', obj), '');
 	let arr = [123];
-	t.is(fn('{{0.1}}', arr), '');
-	t.is(fn('{{0.1.2}}', arr), '');
-	t.end();
+	assert.is(fn('{{0.1}}', arr), '');
+	assert.is(fn('{{0.1.2}}', arr), '');
 });
 
-test('trim keys (whitespace)', t => {
+test('trim keys (whitespace)', () => {
 	let obj = { foo:123, bar:{ baz:456 } };
-	t.is(fn('{{ foo }}', obj), '123');
-	t.is(fn('{{ bar.baz }}', obj), '456');
+	assert.is(fn('{{ foo }}', obj), '123');
+	assert.is(fn('{{ bar.baz }}', obj), '456');
 	let arr = [123, [456]];
-	t.is(fn('{{ 0 }}', arr), '123');
-	t.is(fn('{{ 1.0 }}', arr), '456');
-	t.end();
+	assert.is(fn('{{ 0 }}', arr), '123');
+	assert.is(fn('{{ 1.0 }}', arr), '456');
 });
 
-test('multiline string', t => {
+test('multiline string', () => {
 	let obj = { foo:123, bar:456 };
-	t.is(fn('\nApples: {{foo}}\n\nOranges: {{bar}}', obj), '\nApples: 123\n\nOranges: 456');
-	t.is(fn(`
+	assert.is(fn('\nApples: {{foo}}\n\nOranges: {{bar}}', obj), '\nApples: 123\n\nOranges: 456');
+	assert.is(fn(`
 		Apples: {{foo}}
 		Oranges: {{bar}}
 	`, obj), '\n\t\tApples: 123\n\t\tOranges: 456\n\t');
-	t.end();
 });
 
-test('mixed datatype', t => {
+test('mixed datatype', () => {
 	let arr = [4, 5, 6];
 	arr.foo = 'hello';
 	arr.bar = 'world';
-	t.is(fn('{{foo}}, {{bar}}! {{0}}{{1}}{{2}}', arr), 'hello, world! 456');
-	t.end();
+	assert.is(fn('{{foo}}, {{bar}}! {{0}}{{1}}{{2}}', arr), 'hello, world! 456');
 });
 
-test('allows "0" value', t => {
-	t.is(fn('{{0}} & {{1}}', [0, -1]), '0 & -1');
-	t.end();
+test('allows "0" value', () => {
+	assert.is(fn('{{0}} & {{1}}', [0, -1]), '0 & -1');
 });
 
-test('currying', t => {
+test('currying', () => {
 	let x = fn.bind(null, 'Hello, {{name}}');
 	let arr = ['Jack', 'Jill', 'John'].map(name => x({ name }));
-	t.same(arr, ['Hello, Jack', 'Hello, Jill', 'Hello, John']);
-	t.end();
+	assert.equal(arr, ['Hello, Jack', 'Hello, Jill', 'Hello, John']);
 });
+
+test.run();
