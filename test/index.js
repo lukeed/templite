@@ -106,6 +106,19 @@ test('allows "0" value', t => {
 	t.end();
 });
 
+test('inherited keys ~> empty string', t => {
+	// Only own properties should resolve; inherited members must not leak (#10)
+	t.is(fn('{{constructor.name}}', {}), '');
+	t.is(fn('{{toString}}', {}), '');
+	t.is(fn('{{hasOwnProperty}}', {}), '');
+	t.is(fn('{{__proto__.constructor.name}}', {}), '');
+	t.is(fn('{{a.constructor.name}}', { a: 5 }), '');
+	// own properties still resolve, including an own `constructor`
+	t.is(fn('{{a.constructor}}', { a: { constructor: 'mine' } }), 'mine');
+	t.is(fn('{{length}}', [1, 2]), '2');
+	t.end();
+});
+
 test('currying', t => {
 	let x = fn.bind(null, 'Hello, {{name}}');
 	let arr = ['Jack', 'Jill', 'John'].map(name => x({ name }));

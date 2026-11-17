@@ -6,7 +6,7 @@ export default function (str, mix) {
 		y = mix;
 		key = key.trim().split('.');
 		while (y && x < key.length) {
-			y = y[key[x++]];
+			y = Object.hasOwn(y, key[x]) ? y[key[x++]] : undefined;
 		}
 		return y != null ? y : '';
 	});
